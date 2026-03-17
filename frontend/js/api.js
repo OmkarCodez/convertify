@@ -5,7 +5,7 @@
 
 const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
   ? 'http://localhost:8000'
-  : window.location.origin;
+  : 'https://convertify-api.onrender.com';
 
 // ── Health check ──────────────────────────────────────────────────────────────
 async function apiHealth() {
