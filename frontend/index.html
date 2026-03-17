@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convertify — All-in-One File Utility</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="bg-grid"></div>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <span class="logo-icon">⚡</span>
+    <span class="logo-text">Convertify</span>
+    <span class="logo-tag">FULL-STACK</span>
+  </div>
+  <nav id="main-nav">
+    <button class="nav-btn active" data-tab="documents">📄 Documents</button>
+    <button class="nav-btn" data-tab="images">🖼️ Images</button>
+    <button class="nav-btn" data-tab="data">💻 Data & Code</button>
+  </nav>
+  <div class="api-status" id="api-status">
+    <span class="dot"></span><span class="api-label">Checking API…</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-pill">Powered by FastAPI · 100% Server-side Processing</div>
+  <h1>Convert <span class="accent">Everything</span>.<br>All Formats. Real Power.</h1>
+  <p class="hero-sub">PDF, Word, Excel, PPT, Images, JSON, XML, YAML and more — all converted server-side with full library support.</p>
+</section>
+
+<!-- MAIN -->
+<main>
+
+  <!-- DOCUMENTS TAB -->
+  <section id="tab-documents" class="tab-section active">
+    <div class="section-label">PDF Tools</div>
+    <div class="tool-grid">
+      <div class="tool-card" onclick="openModal('pdf-to-text')"><div class="ti">📄</div><div class="ti-info"><h3>PDF → Text</h3><p>Extract all text from any PDF</p><div class="badges"><span>PDF</span><span>TXT</span></div></div></div>
+      <div class="tool-card" onclick="openModal('pdf-to-html')"><div class="ti">🌐</div><div class="ti-info"><h3>PDF → HTML</h3><p>Convert PDF pages to styled HTML</p><div class="badges"><span>PDF</span><span>HTML</span></div></div></div>
+      <div class="tool-card" onclick="openModal('pdf-to-word')"><div class="ti">📝</div><div class="ti-info"><h3>PDF → Word</h3><p>Convert PDF to editable DOCX</p><div class="badges"><span>PDF</span><span>DOCX</span></div></div></div>
+      <div class="tool-card" onclick="openModal('pdf-to-excel')"><div class="ti">📊</div><div class="ti-info"><h3>PDF → Excel</h3><p>Extract tables from PDF to XLSX</p><div class="badges"><span>PDF</span><span>XLSX</span></div></div></div>
+      <div class="tool-card" onclick="openModal('pdf-to-images')"><div class="ti">🖼️</div><div class="ti-info"><h3>PDF → Images</h3><p>Convert each page to PNG/JPG</p><div class="badges"><span>PDF</span><span>ZIP</span></div></div></div>
+      <div class="tool-card" onclick="openModal('html-to-pdf')"><div class="ti">📑</div><div class="ti-info"><h3>HTML → PDF</h3><p>Render HTML file as PDF</p><div class="badges"><span>HTML</span><span>PDF</span></div></div></div>
+    </div>
+
+    <div class="section-label" style="margin-top:32px">Word / Excel / PPT</div>
+    <div class="tool-grid">
+      <div class="tool-card" onclick="openModal('word-to-pdf')"><div class="ti">📝</div><div class="ti-info"><h3>Word → PDF</h3><p>Convert DOCX to PDF via LibreOffice</p><div class="badges"><span>DOCX</span><span>PDF</span></div></div></div>
+      <div class="tool-card" onclick="openModal('word-to-html')"><div class="ti">🌐</div><div class="ti-info"><h3>Word → HTML</h3><p>Extract DOCX as styled HTML</p><div class="badges"><span>DOCX</span><span>HTML</span></div></div></div>
+      <div class="tool-card" onclick="openModal('word-to-text')"><div class="ti">📋</div><div class="ti-info"><h3>Word → Text</h3><p>Extract plain text from DOCX</p><div class="badges"><span>DOCX</span><span>TXT</span></div></div></div>
+      <div class="tool-card" onclick="openModal('excel-to-csv')"><div class="ti">📊</div><div class="ti-info"><h3>Excel → CSV</h3><p>Export spreadsheet as CSV</p><div class="badges"><span>XLSX</span><span>CSV</span></div></div></div>
+      <div class="tool-card" onclick="openModal('excel-to-json')"><div class="ti">{}</div><div class="ti-info"><h3>Excel → JSON</h3><p>Convert spreadsheet rows to JSON</p><div class="badges"><span>XLSX</span><span>JSON</span></div></div></div>
+      <div class="tool-card" onclick="openModal('csv-to-excel')"><div class="ti">📈</div><div class="ti-info"><h3>CSV → Excel</h3><p>Convert CSV to formatted XLSX</p><div class="badges"><span>CSV</span><span>XLSX</span></div></div></div>
+      <div class="tool-card" onclick="openModal('excel-to-pdf')"><div class="ti">📑</div><div class="ti-info"><h3>Excel → PDF</h3><p>Convert spreadsheet to PDF</p><div class="badges"><span>XLSX</span><span>PDF</span></div></div></div>
+      <div class="tool-card" onclick="openModal('ppt-to-text')"><div class="ti">🎤</div><div class="ti-info"><h3>PPT → Text</h3><p>Extract text from all slides</p><div class="badges"><span>PPTX</span><span>TXT</span></div></div></div>
+      <div class="tool-card" onclick="openModal('ppt-to-pdf')"><div class="ti">📑</div><div class="ti-info"><h3>PPT → PDF</h3><p>Convert presentation to PDF</p><div class="badges"><span>PPTX</span><span>PDF</span></div></div></div>
+      <div class="tool-card" onclick="openModal('markdown-to-html')"><div class="ti">✍️</div><div class="ti-info"><h3>Markdown → HTML</h3><p>Convert .md to styled HTML page</p><div class="badges"><span>MD</span><span>HTML</span></div></div></div>
+      <div class="tool-card" onclick="openModal('csv-to-json')"><div class="ti">🔄</div><div class="ti-info"><h3>CSV → JSON</h3><p>Convert CSV rows to JSON array</p><div class="badges"><span>CSV</span><span>JSON</span></div></div></div>
+      <div class="tool-card" onclick="openModal('json-to-csv')"><div class="ti">🔄</div><div class="ti-info"><h3>JSON → CSV</h3><p>Flatten JSON array to CSV</p><div class="badges"><span>JSON</span><span>CSV</span></div></div></div>
+    </div>
+  </section>
+
+  <!-- IMAGES TAB -->
+  <section id="tab-images" class="tab-section">
+    <div class="tool-grid">
+      <div class="tool-card" onclick="openModal('img-resize')"><div class="ti">📐</div><div class="ti-info"><h3>Resize</h3><p>Pixel dimensions or percentage scale</p><div class="badges"><span>PNG</span><span>JPG</span><span>WEBP</span></div></div></div>
+      <div class="tool-card" onclick="openModal('img-compress')"><div class="ti">🗜️</div><div class="ti-info"><h3>Compress</h3><p>Reduce file size, control quality</p><div class="badges"><span>PNG</span><span>JPG</span><span>WEBP</span></div></div></div>
+      <div class="tool-card" onclick="openModal('img-convert')"><div class="ti">🔄</div><div class="ti-info"><h3>Format Convert</h3><p>PNG↔JPG↔WEBP↔BMP↔TIFF</p><div class="badges"><span>ALL</span></div></div></div>
+      <div class="tool-card" onclick="openModal('img-crop')"><div class="ti">✂️</div><div class="ti-info"><h3>Crop</h3><p>Exact coords or preset aspect ratios</p><div class="badges"><span>PNG</span><span>JPG</span><span>WEBP</span></div></div></div>
+      <div class="tool-card" onclick="openModal('img-rotate')"><div class="ti">🔃</div><div class="ti-info"><h3>Rotate & Flip</h3><p>Rotate any angle, flip H/V</p><div class="badges"><span>ALL</span></div></div></div>
+      <div class="tool-card" onclick="openModal('img-watermark')"><div class="ti">💧</div><div class="ti-info"><h3>Watermark</h3><p>Add text watermark with opacity</p><div class="badges"><span>ALL</span></div></div></div>
+      <div class="tool-card" onclick="openModal('img-filter')"><div class="ti">🎨</div><div class="ti-info"><h3>Filters & Effects</h3><p>Grayscale, sepia, blur, sharpen…</p><div class="badges"><span>ALL</span></div></div></div>
+      <div class="tool-card" onclick="openModal('img-bulk')"><div class="ti">📦</div><div class="ti-info"><h3>Bulk Convert</h3><p>Convert multiple images at once → ZIP</p><div class="badges"><span>BULK</span><span>ZIP</span></div></div></div>
+      <div class="tool-card" onclick="openModal('img-metadata')"><div class="ti">🔍</div><div class="ti-info"><h3>Metadata & EXIF</h3><p>Dimensions, color mode, EXIF data</p><div class="badges"><span>ALL</span></div></div></div>
+      <div class="tool-card" onclick="openModal('img-base64')"><div class="ti">🔐</div><div class="ti-info"><h3>Image ↔ Base64</h3><p>Encode to data URL or decode back</p><div class="badges"><span>ALL</span><span>B64</span></div></div></div>
+    </div>
+  </section>
+
+  <!-- DATA & CODE TAB -->
+  <section id="tab-data" class="tab-section">
+    <div class="tool-grid">
+      <div class="tool-card" onclick="openModal('json-tool')"><div class="ti">{}</div><div class="ti-info"><h3>JSON Tools</h3><p>Beautify, minify, validate, sort keys</p><div class="badges"><span>JSON</span></div></div></div>
+      <div class="tool-card" onclick="openModal('xml-tool')"><div class="ti">&lt;/&gt;</div><div class="ti-info"><h3>XML Tools</h3><p>Beautify, minify, validate XML</p><div class="badges"><span>XML</span></div></div></div>
+      <div class="tool-card" onclick="openModal('html-tool')"><div class="ti">🌐</div><div class="ti-info"><h3>HTML Tools</h3><p>Beautify and minify HTML markup</p><div class="badges"><span>HTML</span></div></div></div>
+      <div class="tool-card" onclick="openModal('css-tool')"><div class="ti">🎨</div><div class="ti-info"><h3>CSS Tools</h3><p>Beautify and minify stylesheets</p><div class="badges"><span>CSS</span></div></div></div>
+      <div class="tool-card" onclick="openModal('yaml-tool')"><div class="ti">📋</div><div class="ti-info"><h3>YAML ↔ JSON</h3><p>Convert between YAML and JSON</p><div class="badges"><span>YAML</span><span>JSON</span></div></div></div>
+      <div class="tool-card" onclick="openModal('base64-tool')"><div class="ti">🔐</div><div class="ti-info"><h3>Base64 Encoder</h3><p>Encode/decode text and files</p><div class="badges"><span>B64</span><span>FILE</span></div></div></div>
+      <div class="tool-card" onclick="openModal('csv-tool')"><div class="ti">📊</div><div class="ti-info"><h3>CSV Beautify</h3><p>View CSV as aligned table</p><div class="badges"><span>CSV</span></div></div></div>
+      <div class="tool-card" onclick="openModal('json-xml-tool')"><div class="ti">⇄</div><div class="ti-info"><h3>JSON ↔ XML</h3><p>Bidirectional conversion</p><div class="badges"><span>JSON</span><span>XML</span></div></div></div>
+    </div>
+  </section>
+
+</main>
+
+<!-- MODAL -->
+<div id="modal-overlay" class="modal-overlay">
+  <div class="modal" id="main-modal">
+    <button class="modal-close" id="modal-close-btn">✕</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div id="toast-container"></div>
+
+<footer>
+  <div class="footer-inner">
+    <span>⚡ Convertify — FastAPI Backend · All files processed server-side</span>
+    <span>Deploy: <code>uvicorn main:app --reload</code></span>
+  </div>
+</footer>
+
+<script src="js/api.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/tools.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
