@@ -13,18 +13,42 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
   });
 });
 
-// ── API HEALTH CHECK ──────────────────────────────────────────────────────────
+// ── API HEALTH CHECK & WAKE-UP ────────────────────────────────────────────────
 (async () => {
-  const ok = await apiHealth();
   const dot = document.querySelector('.dot');
   const lbl = document.querySelector('.api-label');
-  if (ok) {
+
+  // Fast first check — API may already be running
+  const alreadyOnline = await apiHealth();
+  if (alreadyOnline) {
     dot.classList.add('online');
     lbl.textContent = 'API Online';
+    return;
+  }
+
+  // API is sleeping (Render.com free tier spins down after inactivity).
+  // Show a "warming up" state and keep pinging until it responds.
+  dot.classList.add('warming');
+  lbl.textContent = 'Warming up API…';
+  toast('API is starting up — this may take up to 60s on the first visit.', 'info', 10000);
+
+  const woke = await apiWakeUp({
+    timeout: 60000,
+    interval: 3000,
+    onAttempt: attempt => {
+      lbl.textContent = `Warming up API… (${attempt})`;
+    },
+  });
+
+  dot.classList.remove('warming');
+  if (woke) {
+    dot.classList.add('online');
+    lbl.textContent = 'API Online';
+    toast('API is ready!', 'ok', 3000);
   } else {
     dot.classList.add('offline');
     lbl.textContent = 'API Offline';
-    toast('Backend not reachable. Start with: uvicorn main:app --reload', 'err', 8000);
+    toast('Backend not reachable. Please try again later.', 'err', 8000);
   }
 })();
 

@@ -39,6 +39,8 @@ nav{display:flex;gap:3px}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--yellow);transition:.3s}
 .dot.online{background:var(--green);box-shadow:0 0 6px var(--green)}
 .dot.offline{background:var(--red)}
+.dot.warming{background:var(--yellow);animation:pulse-dot 1s ease-in-out infinite}
+@keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(251,191,36,.6)}50%{box-shadow:0 0 0 5px rgba(251,191,36,0)}}
 
 /* HERO */
 .hero{position:relative;z-index:1;text-align:center;padding:64px 24px 48px;max-width:760px;margin:0 auto}

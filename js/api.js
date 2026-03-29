@@ -10,9 +10,27 @@ const API_BASE = window.location.hostname === 'localhost' || window.location.hos
 // ── Health check ──────────────────────────────────────────────────────────────
 async function apiHealth() {
   try {
-    const r = await fetch(`${API_BASE}/api/health`, { signal: AbortSignal.timeout(3000) });
+    const r = await fetch(`${API_BASE}/api/health`, { signal: AbortSignal.timeout(5000) });
     return r.ok;
   } catch { return false; }
+}
+
+// ── Wake-up: poll health until service is online or timeout reached ───────────
+// Render.com free-tier services spin down after inactivity. This function
+// fires a request to wake the service and retries every `interval` ms for
+// up to `timeout` ms, calling `onAttempt(attempt)` on each retry so the
+// caller can update the UI with progress.
+async function apiWakeUp({ timeout = 60000, interval = 3000, onAttempt } = {}) {
+  const deadline = Date.now() + timeout;
+  let attempt = 0;
+  while (Date.now() < deadline) {
+    attempt += 1;
+    if (onAttempt) onAttempt(attempt);
+    const ok = await apiHealth();
+    if (ok) return true;
+    await new Promise(res => setTimeout(res, Math.min(interval, deadline - Date.now())));
+  }
+  return false;
 }
 
 // ── Core request with upload progress ────────────────────────────────────────
