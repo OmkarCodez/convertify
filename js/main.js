@@ -24,9 +24,25 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
   } else {
     dot.classList.add('offline');
     lbl.textContent = 'API Offline';
-    toast('Backend not reachable. Start with: uvicorn main:app --reload', 'err', 8000);
+    toast('Backend not reachable. Click Deploy or run: uvicorn main:app --reload', 'err', 8000);
   }
 })();
+
+// ── DEPLOY BUTTON ────────────────────────────────────────────────────────────
+const deployBtn = document.getElementById('deploy-copy-btn');
+if (deployBtn) {
+  deployBtn.addEventListener('click', () => {
+    const cmd = 'uvicorn main:app --reload';
+    navigator.clipboard.writeText(cmd).then(() => {
+      deployBtn.textContent = '✓ Copied!';
+      deployBtn.classList.add('copied');
+      toast('Command copied — paste it in your terminal to start the backend', 'ok');
+      setTimeout(() => { deployBtn.textContent = 'Deploy'; deployBtn.classList.remove('copied'); }, 2500);
+    }).catch(() => {
+      toast('Copy failed — run manually: ' + cmd, 'err');
+    });
+  });
+}
 
 // ── TOOL LOGIC DISPATCHER ─────────────────────────────────────────────────────
 function initToolLogic(id) {
